@@ -30,10 +30,10 @@ const deserializeUser = async (
     if (newAccessToken) {
       //set the token in custom headers
       res.setHeader('x-access-token', newAccessToken)
-      const { decoded } = decode(newAccessToken) as any
+      const { decoded } = (await decode(newAccessToken)) as any
       //@ts-ignore
       req.user = decoded
-      console.log('Token Refreshed')
+      console.log('Token Refreshed==>')
     }
     next()
   }

@@ -22,21 +22,21 @@ export async function createAccessToken(user: any, session: any) {
 }
 
 //re issue the access token
-export async function reIsssueAccessToken({
-  refeshToken,
-}: {
-  refeshToken: string
-}) {
+export async function reIsssueAccessToken(refeshToken: string) {
   //decode the refresh token
+
   const { decoded } = (await decode(refeshToken)) as any
-  if (!decoded || get(decoded, '_id')) {
+  if (!decoded || !get(decoded, '_id')) {
     return false
   }
 
   //get the session
   const session = await Session.findById(get(decoded, '_id'))
+  console.log(session)
+  console.log('valid', !session?.valid)
 
   //make sure that the session is still valid
+  //   console.log(!session)
   if (!session || !session?.valid) return false
 
   //find the user
@@ -50,5 +50,5 @@ export async function reIsssueAccessToken({
 
 //update session on logout
 export async function updateSession(query: any, data: any) {
-  await await Session.findByIdAndUpdate(query, data)
+  await Session.findByIdAndUpdate(query, data)
 }

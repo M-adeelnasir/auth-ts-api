@@ -20,4 +20,8 @@ export default function (app: Express) {
 
   //logout
   app.delete('/api/session', requireSignIn, invalidateUserSessionHandler)
+
+  app.get('/api/session', requireSignIn, (req: Request, res: Response) =>
+    res.sendStatus(200)
+  )
 }

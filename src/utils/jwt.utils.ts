@@ -22,7 +22,7 @@ export async function decode(token: string) {
       console.log(err)
       return {
         valid: false,
-        expired: err.message === 'jwt token Expired',
+        expired: err.message === 'jwt expired',
         decoded: null,
       }
     }
