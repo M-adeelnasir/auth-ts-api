@@ -12,7 +12,7 @@ export default function (app: Express) {
 
   //post  /login
   app.post(
-    '/api/sessions',
+    '/api/session',
     validate(createUserSessionSchema),
     createUserSessionHandler
   )

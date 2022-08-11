@@ -11,6 +11,7 @@ export async function createSession(userId: string, userAgent: string) {
 
 export async function createAccessToken(user: any, session: any) {
   //build and return access token
+
   const accessToken = sign(
     { ...user, session: session._id },
     { expiresIn: config.get('accessTokenTtl') }
