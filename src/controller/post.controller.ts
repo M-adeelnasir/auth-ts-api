@@ -81,9 +81,7 @@ export async function deletePostHandler(req: Request, res: Response) {
       return res.sendStatus(401)
     }
 
-    //update
-    const updatedPost = await deletePost({ _id: postId })
-    return res.send(updatedPost)
+    return res.sendStatus(200)
   } catch (err) {
     if (err instanceof Error) {
       console.log(err.message)
