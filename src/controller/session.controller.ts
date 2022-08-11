@@ -58,7 +58,7 @@ export async function getUserSessionHandler(req: Request, res: Response) {
     const userId = get(req, 'user._id')
 
     const sessions = await findSessions({ user: userId, valid: true })
-
+    // console.log(sessions)
     return res.send(sessions)
   } catch (err) {
     if (err instanceof Error) {
