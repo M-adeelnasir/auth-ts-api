@@ -51,6 +51,7 @@ export async function updatePostHandler(req: Request, res: Response) {
 export async function getPostHandler(req: Request, res: Response) {
   try {
     const postId = get(req, 'params.postId')
+
     const post: any = await findPost({ _id: postId })
     if (!post) {
       return res.sendStatus(404)

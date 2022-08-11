@@ -14,7 +14,7 @@ const requireSignIn = async (
       return res.sendStatus(403)
     }
 
-    return next()
+    next()
   } catch (err) {
     if (err instanceof Error) {
       log.error(err.message)

@@ -6,7 +6,7 @@ import { validate, requireSignIn } from './middleware'
 import { invalidateUserSessionHandler } from './controller/session.controller'
 import { getUserSessionHandler } from './controller/session.controller'
 import { createPostScehma } from './schema/post.shema'
-import { createPostHandler } from './controller/post.controller'
+import { createPostHandler, getPostHandler } from './controller/post.controller'
 
 export default function (app: Express) {
   //test end points
@@ -40,4 +40,5 @@ export default function (app: Express) {
     validate(createPostScehma),
     createPostHandler
   )
+  app.get('/api/post/:postId', getPostHandler)
 }
