@@ -12,9 +12,11 @@ const validate =
         params: req.params,
       })
       return next()
-    } catch (err) {
-      log.error(err)
-      return res.status(400).send('ERROR In validating')
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        log.error(err.message)
+        return res.status(400).send('ERROR In validating')
+      }
     }
   }
 
