@@ -14,11 +14,3 @@ export async function createUserHandler(req: Request, res: Response) {
     }
   }
 }
-
-export async function createUserSessionHandler(req: Request, res: Response) {
-  //validate email
-  //create session
-  //create access token
-  //create refresh token
-  //send refresh and access token
-}
