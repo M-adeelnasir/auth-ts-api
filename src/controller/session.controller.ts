@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { createSession } from '../service/session.service'
 import { validateUserPassword } from '../service/user.service'
+import { createAccessToken } from '../service/session.service'
 
 export async function createUserSessionHandler(req: Request, res: Response) {
   //validate email and password
@@ -10,7 +11,9 @@ export async function createUserSessionHandler(req: Request, res: Response) {
   }
   //create session
   const session = await createSession(user._id, req.get('user-agent') || '')
+
   //create access token
+  const accessToken = createAccessToken(user, session)
   //create refresh token
   //send refresh and access token
 }

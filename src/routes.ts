@@ -1,8 +1,6 @@
 import { Express, Response, Request } from 'express'
-import {
-  createUserHandler,
-  createUserSessionHandler,
-} from './controller/user.controller'
+import { createUserHandler } from './controller/user.controller'
+import { createUserSessionHandler } from './controller/session.controller'
 import validate from './middleware/validateRequest'
 import { createUserScehma, createUserSessionSchema } from './schema/user.schema'
 
