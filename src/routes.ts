@@ -1,11 +1,21 @@
 import { Express, Response, Request } from 'express'
-import { createUserHandler } from './controller/user.controller'
+import {
+  createUserHandler,
+  createUserSessionHandler,
+} from './controller/user.controller'
 import validate from './middleware/validateRequest'
-import { createUserScehma } from './schema/user.schema'
+import { createUserScehma, createUserSessionSchema } from './schema/user.schema'
 
 export default function (app: Express) {
   app.get('/', (req: Request, res: Response) => res.sendStatus(200))
 
   //post /user/regisetr
   app.post('/api/users', validate(createUserScehma), createUserHandler)
+
+  //post  /login
+  app.post(
+    '/api/sessions',
+    validate(createUserSessionSchema),
+    createUserSessionHandler
+  )
 }

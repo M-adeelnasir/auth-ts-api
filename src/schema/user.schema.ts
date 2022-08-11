@@ -15,3 +15,5 @@ export const createUserScehma = object({
       .required('Email is required'),
   }),
 })
+
+export const createUserSessionSchema = object({})
