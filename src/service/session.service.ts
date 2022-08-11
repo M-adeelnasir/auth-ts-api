@@ -1,3 +1,4 @@
+import { FilterQuery } from 'mongoose'
 import Session from '../model/session.model'
 import config from 'config'
 import { decode, sign } from '../utils/jwt.utils'
@@ -45,4 +46,9 @@ export async function reIsssueAccessToken({
   const accessToken = await createAccessToken(user, session)
 
   return accessToken
+}
+
+//update session on logout
+export async function updateSession(query: any, data: any) {
+  await await Session.findByIdAndUpdate(query, data)
 }

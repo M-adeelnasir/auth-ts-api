@@ -3,7 +3,10 @@ import { createSession } from '../service/session.service'
 import { validateUserPassword } from '../service/user.service'
 import { createAccessToken } from '../service/session.service'
 import config from 'config'
+import { get } from 'lodash'
 import { sign } from '../utils/jwt.utils'
+import log from '../logger'
+import { updateSession } from '../service/session.service'
 
 export async function createUserSessionHandler(req: Request, res: Response) {
   try {
@@ -28,6 +31,24 @@ export async function createUserSessionHandler(req: Request, res: Response) {
   } catch (err) {
     if (err instanceof Error) {
       throw new Error(err.message)
+    }
+  }
+}
+
+//logout and invalidate user
+export async function invalidateUserSessionHandler(
+  req: Request,
+  res: Response
+) {
+  try {
+    const sessionId = get(req, 'user.session')
+    await updateSession({ _id: sessionId }, { valid: false })
+    console.log('Session Updated')
+
+    return res.sendStatus(200)
+  } catch (err) {
+    if (err instanceof Error) {
+      log.error(err.message)
     }
   }
 }

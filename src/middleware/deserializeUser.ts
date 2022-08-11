@@ -8,23 +8,22 @@ const deserializeUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  const accessToken = await get(req, 'headers.authrization', '').replace(
+  const accessToken = await get(req, 'headers.authorization', '').replace(
     /^Bearer\s/,
     ''
   )
+
   if (!accessToken) return next()
-  console.log('AccessToken==>', accessToken)
 
   const refreshToken = await get(req, 'headers.x-refresh')
 
-  const { decoded, expired } = decode(accessToken) as any
+  const { decoded, expired } = (await decode(accessToken)) as any
 
   if (decoded) {
     //@ts-ignore
     req.user = decoded
     return next()
   }
-  console.log('refreshToken==>', refreshToken)
 
   if (expired && refreshToken) {
     const newAccessToken = await reIsssueAccessToken(refreshToken)
@@ -34,6 +33,7 @@ const deserializeUser = async (
       const { decoded } = decode(newAccessToken) as any
       //@ts-ignore
       req.user = decoded
+      console.log('Token Refreshed')
     }
     next()
   }

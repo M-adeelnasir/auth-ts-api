@@ -1,16 +1,25 @@
 import { get } from 'lodash'
 import { Request, Response, NextFunction } from 'express'
-
+import log from '../logger'
 const requireSignIn = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const user = get(req, 'user')
-  if (!user) {
-    return res.sendStatus(403)
+  try {
+    const user = get(req, 'user')
+    console.log('Required Sign in', user)
+
+    if (!user) {
+      return res.sendStatus(403)
+    }
+
+    return next()
+  } catch (err) {
+    if (err instanceof Error) {
+      log.error(err.message)
+    }
   }
-  return next()
 }
 
 export default requireSignIn
