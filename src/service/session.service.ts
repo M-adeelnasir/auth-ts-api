@@ -52,3 +52,8 @@ export async function reIsssueAccessToken(refeshToken: string) {
 export async function updateSession(query: any, data: any) {
   await Session.findByIdAndUpdate(query, data)
 }
+
+//get all sessions
+export async function findSessions(query: any) {
+  return await Session.find(query).lean()
+}

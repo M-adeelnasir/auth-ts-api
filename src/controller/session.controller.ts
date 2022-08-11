@@ -6,7 +6,7 @@ import config from 'config'
 import { get } from 'lodash'
 import { sign } from '../utils/jwt.utils'
 import log from '../logger'
-import { updateSession } from '../service/session.service'
+import { updateSession, findSessions } from '../service/session.service'
 
 export async function createUserSessionHandler(req: Request, res: Response) {
   try {
@@ -43,12 +43,27 @@ export async function invalidateUserSessionHandler(
   try {
     const sessionId = get(req, 'user.session')
     await updateSession({ _id: sessionId }, { valid: false })
-    console.log('Session Updated')
 
     return res.sendStatus(200)
   } catch (err) {
     if (err instanceof Error) {
       log.error(err.message)
+      throw new Error(err.message)
+    }
+  }
+}
+
+export async function getUserSessionHandler(req: Request, res: Response) {
+  try {
+    const userId = get(req, 'user._id')
+
+    const sessions = await findSessions({ user: userId, valid: true })
+
+    return res.send(sessions)
+  } catch (err) {
+    if (err instanceof Error) {
+      console.log(err.message)
+      throw new Error(err.message)
     }
   }
 }
