@@ -11,7 +11,7 @@ export const createUserScehma = object({
       'Password must match'
     ),
     email: string()
-      .required('Email is required')
-      .email('Must be an valid email'),
+      .email('Must be an valid email')
+      .required('Email is required'),
   }),
 })

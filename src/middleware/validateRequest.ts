@@ -7,8 +7,8 @@ const validate =
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       await schema.validate({
-        name: req.body,
-        email: req.body,
+        body: req.body,
+        query: req.query,
         params: req.params,
       })
       return next()

@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }))
 
 const server = app.listen(port, () => {
   log.info(`Server is listing at http://${host}:${port}`)
-  //   connectDb()
+  connectDb()
   routes(app)
 })
 
